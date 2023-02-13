@@ -8,6 +8,9 @@
 // imports the express package to this file
 const express = require('express');
 
+// import every route into this root index file
+const allRoutes = require('./controllers');
+
 // importing the connection file at config/connection.js
 const sequelize = require('./config/connection')
 
@@ -22,6 +25,15 @@ const PORT = process.env.PORT || 3000;
 // avoids writing models.User
 // When force sync is engaged, the User table will be created
 const { User, Chirp } = require('./models');
+
+// express middleware to parse json data
+// parse url encoded data
+// without these, the app cannot read request.body
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
+// tells this root index file to use all routes
+app.use(allRoutes);
 
 // first route
 app.get("/", (request, response)=>{
