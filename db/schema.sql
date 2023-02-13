@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS chirpy_db;
+CREATE DATABASE chirpy_db;

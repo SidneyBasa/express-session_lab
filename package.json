@@ -1,0 +1,25 @@
+{
+  "name": "express-session_lab",
+  "version": "1.0.0",
+  "description": "A full stack web application that has a sign in page, login page and provides a database to store a password",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SidneyBasa/express-session_lab.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SidneyBasa/express-session_lab/issues"
+  },
+  "homepage": "https://github.com/SidneyBasa/express-session_lab#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mysql2": "^3.1.2",
+    "sequelize": "^6.28.0"
+  }
+}
