@@ -42,7 +42,7 @@ app.get("/", (request, response)=>{
 
 // synchronizing the database before listening to requests
 // force true will force the tables to drop its data
-sequelize.sync({ force: true}).then(function() {
+sequelize.sync({ force: false}).then(function() {
 
 app.listen(PORT, function(){
     console.log('App listening on PORT' + PORT);
