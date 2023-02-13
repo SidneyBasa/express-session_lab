@@ -53,11 +53,20 @@ router.post("/", (request, response)=>{
     
     // if there is an error we will log it
     .catch(error=>{
-        console.log(error);
 
+        // creates a descriptive error message
+        // \x1B[33m yellow text 
+        // \x1B[36m cyan text 
+        // \x1b[0m resets color
+        console.log("\x1B[33m----------------------------------------------")
+        console.log("\x1B[36mPost request error:", error.errors[0].message);
+        console.log("\x1B[33m----------------------------------------------\x1b[0m")
         // errors will include a 500 status
-        response.status(500)
         
+        
+        // reset color
+        response.status(500)
+       
         // a json message is returned
         .json({msg:"oh noes!", error})
     })
