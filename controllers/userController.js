@@ -5,6 +5,9 @@ const express = require('express');
 const router = express.Router();
 const {User, Chirp} = require('../models');
 
+// Adding bcrypt when forming the user login route
+const bcrypt = require('bcrypt')
+
 router.get("/", (request, response)=>{
 
     // returns all the user data
@@ -135,6 +138,44 @@ router.post("/", (request, response)=>{
     })
 })
 
+// login route
+router.post("/login", (request, response)=>{
+    // Find one where the email entered is equal to the email from the body
+    User.findOne({
+        where:{
+        email:request.body.email
+        }
+    })
+    .then(userData=>{
+        // Check if an Email was found
+        // If no email was found on this login return an error
+        if(!userData){
+            // The 401 route means unauthorized
+            return response.status(401).json({msg:"incorrect email"})
+        } else {
+            // After unencrpyting the data
+            // Did the password that was entered, matches the stored password
+            if(bcrypt.compareSync(request.body.password, userData.password)){
+                // tell sessions that you have logged in
+                request.session.userId = userData.id;
 
+                // If the password matches, return with user data
+                return response.json(userData)
+            // If the password does not match, return this 401 error
+            } else {
+                return response.status(401).json({msg:"incorrect password"})
+            }
+        }
+        response.json(userData)
+    })
+    
+    .catch(error=>{
+        console.log("\x1B[33m----------------------------------------------")
+        console.log("\x1B[36mPost request error:", error.message);
+        console.log("\x1B[33m----------------------------------------------\x1b[0m")
+        response.status(500)
+        .json({msg:"oh noes!", error})
+    })
+})
 
 module.exports = router;
