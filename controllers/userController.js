@@ -140,7 +140,7 @@ router.post("/", (request, response)=>{
 
 // login route
 router.post("/login", (request, response)=>{
-    // Find one where the email entered is equal to the email from the body
+    // Find one user where the email entered is equal to the email in the body
     User.findOne({
         where:{
         email:request.body.email
@@ -159,6 +159,9 @@ router.post("/login", (request, response)=>{
                 // tell sessions that you have logged in
                 request.session.userId = userData.id;
 
+                // adds an email property to sessions and checks email
+                request.session.userEmail = userData.email;
+
                 // If the password matches, return with user data
                 return response.json(userData)
             // If the password does not match, return this 401 error
@@ -168,7 +171,6 @@ router.post("/login", (request, response)=>{
         }
         response.json(userData)
     })
-    
     .catch(error=>{
         console.log("\x1B[33m----------------------------------------------")
         console.log("\x1B[36mPost request error:", error.message);
@@ -177,5 +179,6 @@ router.post("/login", (request, response)=>{
         .json({msg:"oh noes!", error})
     })
 })
+
 
 module.exports = router;

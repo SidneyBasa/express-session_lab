@@ -42,7 +42,7 @@ const { User, Chirp } = require('./models');
 const sesh = {
     // this area specifies session options:
     // this is the decryption key, it should be an environment variable
-    secret: 'super secret secret',
+    secret: process.env.SESSION_SECRET,
     // attaches information about the cookie
     // the sessions package, allows usage of session variables, stored in a cookie string
     // can set cookie to expire in the options object
@@ -95,6 +95,19 @@ app.get("/favcolor/:color",(request, response)=>{
     // This is a demonstration of passing in data to this specific session
     request.session.favColor = request.params.color
     response.json(request.session)
+})
+
+// secret club route
+app.get("/secretclub", (request, response)=>{
+    // check to see if the user has a userId in sessions
+    if(request.session.userId) {
+        return response.send(`Welcome to the secret club!, ${request.session.userEmail}`)
+    } else {
+        // otherwise return forbidden status 403
+        response.status(403).json({msg:"login first to join the club!"})
+    }
+
+    
 })
 
 // synchronizing the database before listening to requests
