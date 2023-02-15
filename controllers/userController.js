@@ -30,6 +30,20 @@ router.get("/", (request, response)=>{
     })
 })
 
+// logout route
+// This route must come before the routes with parameters 
+// The logout route will find the rout with the user id which is the parameter of /:id
+// A route with a parameter is ("/:id")
+router.get("/logout", (request, response)=>{
+    // This will destroy the cookie
+    // The cookie is where the login information for the user is stored
+    // Deleting the cookie will destroy the user log in data in the cookie
+    request.session.destroy();
+
+    response.send("User has logged out")
+})
+
+
 // February 13 2023
 // Get route for one user email
 // References zoom recording February 3, 2023 @ 1:58:03
