@@ -11,6 +11,8 @@ const express = require('express');
 // imports the express-session package to this file
 const session = require('express-session');
 
+const expresshandlebars = require('express-handlebars')
+
 // import every route into this root index file
 const allRoutes = require('./controllers');
 
@@ -69,6 +71,13 @@ app.use(session(sesh))
 // without these, the app cannot read request.body
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+
+// directory of static files
+app.use(express.static('public'));
+
+// enables the view engine of handlebars
+const handle = expresshandlebars.create({});
+app.engine('handlebars', handle.engine)
 
 // tells this root index file to use all routes
 app.use(allRoutes);

@@ -58,10 +58,6 @@ router.post("/", (request, response)=>{
     } else {
         return response.status(403).json({msg:"You must login or sign up to create a chirp"})
     }
-    
-
-
-
 })
 
 
