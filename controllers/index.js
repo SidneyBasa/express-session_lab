@@ -9,4 +9,8 @@ router.use("/api/users", userRoutes);
 const chirpRoutes = require('./chirpController');
 router.use("/api/chirps", chirpRoutes);
 
+// connects router to the front end routes
+const frontEndRoutes = require('./frontEndController');
+router.use("/", frontEndRoutes);
+
 module.exports = router;

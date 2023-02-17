@@ -78,14 +78,10 @@ app.use(express.static('public'));
 // enables the view engine of handlebars
 const handle = expresshandlebars.create({});
 app.engine('handlebars', handle.engine)
+app.set('view engine', 'handlebars')
 
 // tells this root index file to use all routes
 app.use(allRoutes);
-
-// first route
-app.get("/", (request, response)=>{
-    response.send("hello welcome to chirpy!")
-})
 
 // Creating a route for sesions
 app.get("/sessions", (request, response)=>{
