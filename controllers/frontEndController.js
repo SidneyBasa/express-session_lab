@@ -15,9 +15,12 @@ router.get("/", (request, response)=>{
         
         // Taking the raw data
         // And placing it in a form that handlebars can read
+        // Takes the property chirp which is defined in the model Chrip at chirp.js 
+        // and converts it into json format
         const handlebarChirps = chirpData.map(chirp=>chirp.toJSON())
                 // After the map method converts chirpData to json
                 // place it into the allChirps key to pass into views 
+                console.log("value of handlebarChirps", handlebarChirps)
                 response.render("home",{
                 allChirps:handlebarChirps
         })
